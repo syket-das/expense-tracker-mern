@@ -1,19 +1,32 @@
 import React from 'react';
+import {useForm} from 'react-hook-form';
+import List from './List';
 
 const Form = () => {
+
+   const {register,handleSubmit,resetField} =  useForm();
+
+   const onSubmit = data => {
+
+
+        console.log(data);
+        resetField();
+   }
+
   return (
     <div className="form max-w-sm mx-auto w-96">
       <h1 className="font-bold pb-4 text-xl">Transaction</h1>
-      <form id="form">
+      <form id="form" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4">
           <div className="input-group">
             <input
+              {...register('name')}
               type="text"
               placeholder="Enter your transaction"
               className="form-input"
             />
           </div>
-          <select name="" id="" className="form-input">
+          <select {...register('type')} className="form-input">
             <option value="Investment" defaultValue>
               Investment
             </option>
@@ -22,6 +35,7 @@ const Form = () => {
           </select>
           <div className="input-group">
             <input
+              {...register('amount')}
               type="text"
               placeholder="Enter Amount"
               className="form-input"
@@ -37,6 +51,8 @@ const Form = () => {
           </div>
         </div>
       </form>
+
+      <List />
     </div>
   );
 };
